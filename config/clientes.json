@@ -1,0 +1,30 @@
+{
+  "_como_usar": "Cadastre aqui cada cliente da Pleita. Perfis válidos: situacao | oposicao | centro_independente. Envie ao cliente: o link da área do cliente + o código de acesso. Os códigos NUNCA são publicados no site — apenas hashes.",
+
+  "clientes": [
+    {
+      "id": "demo-situacao",
+      "nome": "Cliente Demonstração — Situação",
+      "codigo_acesso": "PLEITA-SIT-2026",
+      "perfil": "situacao",
+      "estado": "PR",
+      "cargo": "Pré-candidato(a)"
+    },
+    {
+      "id": "demo-oposicao",
+      "nome": "Cliente Demonstração — Oposição",
+      "codigo_acesso": "PLEITA-OPO-2026",
+      "perfil": "oposicao",
+      "estado": "PR",
+      "cargo": "Pré-candidato(a)"
+    },
+    {
+      "id": "demo-centro",
+      "nome": "Cliente Demonstração — Centro",
+      "codigo_acesso": "PLEITA-CEN-2026",
+      "perfil": "centro_independente",
+      "estado": "PR",
+      "cargo": "Pré-candidato(a)"
+    }
+  ]
+}

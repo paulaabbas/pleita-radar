@@ -1,0 +1,127 @@
+{
+  "data_relatorio": "03/07/2026",
+  "temperatura_politica": "QUENTE",
+  "resumo_executivo": "Teste.",
+  "cenario_macro": [
+    {
+      "titulo": "A",
+      "descricao": "x",
+      "fonte": "Poder360",
+      "url": "https://www.poder360.com.br/x",
+      "relevancia": "ALTA",
+      "impacto_eleitoral": "y"
+    },
+    {
+      "titulo": "B",
+      "descricao": "x",
+      "fonte": "Folha de S.Paulo",
+      "url": "",
+      "relevancia": "MEDIA",
+      "impacto_eleitoral": "y"
+    },
+    {
+      "titulo": "C",
+      "descricao": "x",
+      "fonte": "CNN Brasil",
+      "url": "",
+      "relevancia": "BAIXA",
+      "impacto_eleitoral": "y"
+    }
+  ],
+  "pesquisas_dados": {
+    "destaques": [
+      {
+        "instituto": "Datafolha",
+        "data": "19/06/2026",
+        "registro_tse": "BR-09956/2026",
+        "amostra": "2004 entrevistados",
+        "margem": "2 pp",
+        "dado_principal": "41% x 31%",
+        "contexto": "intencao de voto 1o turno",
+        "fonte_url": ""
+      }
+    ],
+    "numero_semana": "x",
+    "interpretacao": "y",
+    "tendencia_aprovacao": "ESTAVEL"
+  },
+  "narrativas_por_perfil": {
+    "contexto": "c",
+    "situacao": {
+      "leitura": "l",
+      "posicionamento": "p",
+      "timing": "t",
+      "risco": "r"
+    },
+    "oposicao": {
+      "leitura": "l",
+      "posicionamento": "p",
+      "timing": "t",
+      "risco": "r"
+    },
+    "centro_independente": {
+      "leitura": "l",
+      "posicionamento": "p",
+      "timing": "t",
+      "risco": "r"
+    }
+  },
+  "pulso_digital": {
+    "instagram": [
+      "a"
+    ],
+    "tiktok": [
+      "a"
+    ],
+    "youtube": [
+      "a"
+    ],
+    "x_twitter": [
+      "a"
+    ],
+    "hashtags_em_alta": [
+      "#a"
+    ],
+    "sentimento_geral": "POLARIZADO",
+    "temas_virais": [
+      "a"
+    ]
+  },
+  "tendencias_setor": [
+    {
+      "tendencia": "t",
+      "descricao": "d",
+      "oportunidade": "o",
+      "urgencia": "IMEDIATA"
+    }
+  ],
+  "linha_editorial": {
+    "tema_semana": "t",
+    "narrativa_mestra": "n",
+    "conteudos_sugeridos": [],
+    "temas_evitar": [],
+    "janelas_oportunidade": []
+  },
+  "insumos_pleita": {
+    "sinais_fracos": [
+      "s"
+    ],
+    "movimentos_adversarios": [
+      "m"
+    ],
+    "oportunidades_posicionamento": [
+      "o"
+    ],
+    "alertas": [
+      "a"
+    ],
+    "proxima_semana": "p"
+  },
+  "auditoria": {
+    "realizada_em": "03/07/2026 06:00",
+    "itens_verificados": 10,
+    "itens_corrigidos": 1,
+    "itens_removidos": 0,
+    "observacoes": "ok"
+  }
+}

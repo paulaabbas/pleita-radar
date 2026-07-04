@@ -346,6 +346,34 @@ function render(r) {
   fs.writeFileSync(path.join(histDir, `radar-${stamp}.json`), JSON.stringify(report, null, 2));
   fs.writeFileSync(path.join(histDir, `radar-${stamp}.html`), html);
 
+  // Dados para a área do cliente
+  const dadosDir = path.join(outDir, "dados");
+  fs.mkdirSync(dadosDir, { recursive: true });
+  fs.writeFileSync(path.join(dadosDir, "latest.json"), JSON.stringify(report, null, 2));
+
+  // Índice de datas disponíveis (navegação de histórico)
+  const datasPath = path.join(dadosDir, "datas.json");
+  let datas = [];
+  if (fs.existsSync(datasPath)) { try { datas = JSON.parse(fs.readFileSync(datasPath, "utf8")); } catch {} }
+  if (!datas.includes(stamp)) datas.push(stamp);
+  datas.sort().reverse();
+  fs.writeFileSync(datasPath, JSON.stringify(datas));
+
+  // Registro público de clientes (apenas hashes — códigos nunca expostos)
+  const clientesPath = path.join(ROOT, "config/clientes.json");
+  if (fs.existsSync(clientesPath)) {
+    const crypto = require("crypto");
+    const cfgClientes = JSON.parse(fs.readFileSync(clientesPath, "utf8"));
+    const clientes = Array.isArray(cfgClientes) ? cfgClientes : (cfgClientes.clientes || []);
+    const pub = clientes.map((c) => ({
+      hash: crypto.createHash("sha256").update(c.codigo_acesso).digest("hex"),
+      nome: c.nome, perfil: c.perfil, estado: c.estado || "", cargo: c.cargo || "",
+    }));
+    fs.writeFileSync(path.join(dadosDir, "clientes-pub.json"), JSON.stringify(pub));
+    console.log("✓ Área do cliente: " + pub.length + " acesso(s) publicado(s) (hash-only)");
+  }
+
   console.log("\n✓ Publicado: docs/index.html");
+  console.log("✓ Dados: docs/dados/latest.json");
   console.log("✓ Histórico: docs/historico/radar-" + stamp + ".{json,html}");
 })().catch((e) => { console.error("FALHA NO PIPELINE:", e.message); process.exit(1); });

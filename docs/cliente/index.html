@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Área do Cliente · Pleita Radar Político</title>
+<meta name="robots" content="noindex,nofollow"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{--void:#07080A;--ink:#0F1014;--surface:#161820;--raised:#1E2028;--border:#2A2C36;
+--gold:#B8944A;--gold-lt:#D4B06A;--gold-dim:#7A6030;--red:#E05555;--green:#27AE60;--amber:#E67E22;
+--text:#E2DAD0;--muted:#8A8580;--faint:#4A4840;--white:#F5F0E8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--void);color:var(--text);font-family:'DM Sans',sans-serif;line-height:1.6;min-height:100vh}
+::selection{background:var(--gold);color:var(--void)}
+a{color:var(--gold-dim);text-decoration:none}a:hover{color:var(--gold)}
+
+/* LOGIN */
+#login{position:fixed;inset:0;background:var(--void);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{max-width:440px;width:100%;border:1px solid var(--border);background:var(--surface);padding:44px}
+.lb-logo{font-family:'Playfair Display',serif;font-size:19px;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.lb-logo::before{content:'P';width:34px;height:34px;border:2px solid var(--gold);display:inline-flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:13px;flex-shrink:0}
+.lb-sub{font-family:'Space Mono',monospace;font-size:9px;color:var(--faint);letter-spacing:.22em;text-transform:uppercase;margin-bottom:36px}
+.lb-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;display:block}
+.lb-input{width:100%;background:var(--raised);border:1px solid var(--border);color:var(--text);font-family:'Space Mono',monospace;font-size:14px;padding:14px 16px;outline:none;transition:border-color .2s;letter-spacing:.08em;text-transform:uppercase}
+.lb-input:focus{border-color:var(--gold)}
+.lb-btn{margin-top:20px;width:100%;background:var(--gold);color:var(--void);border:none;cursor:pointer;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:15px;transition:all .2s;clip-path:polygon(0 0,calc(100% - 8px) 0,100% 8px,100% 100%,8px 100%,0 calc(100% - 8px))}
+.lb-btn:hover{background:var(--gold-lt)}
+.lb-err{margin-top:12px;font-size:12px;color:var(--red);display:none}
+.lb-note{margin-top:24px;font-size:11px;color:var(--faint);line-height:1.6;padding-top:20px;border-top:1px solid var(--border)}
+
+/* APP */
+#app{display:none}
+.topbar{background:rgba(7,8,10,.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:56px;position:sticky;top:0;z-index:100}
+.tb-logo{font-family:'Playfair Display',serif;font-size:13px;font-weight:700;color:var(--gold);display:flex;align-items:center;gap:10px}
+.tb-logo::before{content:'P';width:26px;height:26px;border:1.5px solid var(--gold);display:inline-flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:10px}
+.tb-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.tb-cliente{font-family:'Space Mono',monospace;font-size:9px;color:var(--gold-lt);letter-spacing:.08em}
+.tb-sel{background:var(--raised);border:1px solid var(--border);color:var(--muted);font-family:'Space Mono',monospace;font-size:10px;padding:5px 10px;outline:none;cursor:pointer}
+.tb-out{font-family:'Space Mono',monospace;font-size:8px;color:var(--faint);background:none;border:1px solid var(--border);cursor:pointer;padding:5px 10px;letter-spacing:.08em;text-transform:uppercase;transition:all .2s}
+.tb-out:hover{border-color:var(--red);color:var(--red)}
+
+.wrap{max-width:1100px;margin:0 auto;padding:36px 32px 80px}
+.saudacao{margin-bottom:8px;font-family:'Space Mono',monospace;font-size:10px;color:var(--gold);letter-spacing:.25em;text-transform:uppercase}
+.titulo-dia{font-family:'Playfair Display',serif;font-size:clamp(26px,4vw,38px);font-weight:900;color:var(--white);line-height:1.15;margin-bottom:6px}
+.data-dia{font-family:'Space Mono',monospace;font-size:10px;color:var(--faint);letter-spacing:.1em;margin-bottom:28px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.temp-pill{font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:4px 10px}
+.quente{background:rgba(139,26,26,.2);color:var(--red);border:1px solid rgba(192,57,43,.3)}
+.morna{background:rgba(154,107,26,.2);color:var(--amber);border:1px solid rgba(154,107,26,.3)}
+.fria{background:rgba(30,107,69,.2);color:var(--green);border:1px solid rgba(30,107,69,.3)}
+.audit-pill{font-size:8px;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;background:rgba(30,107,69,.1);color:var(--green);border:1px solid rgba(39,174,96,.25)}
+
+/* NARRATIVA DO CLIENTE (destaque) */
+.minha-narrativa{background:linear-gradient(135deg,rgba(184,148,74,.12),var(--surface));border:1px solid rgba(184,148,74,.35);border-top:4px solid var(--gold);padding:32px;margin-bottom:28px}
+.mn-label{font-family:'Space Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:.25em;text-transform:uppercase;margin-bottom:6px}
+.mn-ctx{font-family:'Playfair Display',serif;font-style:italic;font-size:17px;color:var(--white);line-height:1.6;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid rgba(184,148,74,.2)}
+.mn-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+@media(max-width:700px){.mn-grid{grid-template-columns:1fr}}
+.mn-item .k{font-family:'Space Mono',monospace;font-size:9px;color:var(--gold);letter-spacing:.18em;text-transform:uppercase;margin-bottom:6px}
+.mn-item .v{font-size:13.5px;color:var(--text);line-height:1.65}
+.mn-item.risco{grid-column:1/-1;background:rgba(139,26,26,.08);border-left:3px solid rgba(192,57,43,.4);padding:14px 16px}
+.mn-item.risco .k{color:var(--red)}
+.mn-item.risco .v{color:var(--muted)}
+
+/* seções compactas */
+.sec{display:flex;align-items:center;gap:14px;padding:36px 0 18px;border-top:1px solid var(--border);margin-top:8px}
+.stamp{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.18em;color:var(--void);background:var(--gold);padding:3px 9px;text-transform:uppercase;font-weight:700}
+.sec-t{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--text)}
+.rule{flex:1;height:1px;background:var(--border)}
+
+.exec-mini{background:var(--ink);border-left:3px solid var(--gold);padding:18px 22px;font-size:13.5px;color:var(--muted);line-height:1.7;font-style:italic;font-family:'Playfair Display',serif}
+
+.alerta-row{background:var(--ink);border:1px solid var(--border);border-left:3px solid var(--amber);padding:12px 16px;margin-bottom:8px;font-size:12.5px;color:var(--muted);line-height:1.55;display:flex;gap:10px;align-items:flex-start}
+.alerta-row .ic{flex-shrink:0;margin-top:1px}
+
+.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border)}
+@media(max-width:700px){.mini-grid{grid-template-columns:1fr}}
+.mini-card{background:var(--ink);padding:18px}
+.mc-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.mc-inst{font-family:'Space Mono',monospace;font-size:8px;color:var(--gold);letter-spacing:.15em;text-transform:uppercase}
+.mc-date{font-family:'Space Mono',monospace;font-size:8px;color:var(--faint)}
+.mc-num{font-family:'Playfair Display',serif;font-size:24px;font-weight:900;color:var(--white);line-height:1.1;margin-bottom:6px}
+.mc-ctx{font-size:11.5px;color:var(--muted);line-height:1.55}
+.mc-meta{margin-top:8px;font-family:'Space Mono',monospace;font-size:7.5px;color:var(--faint);letter-spacing:.05em;padding-top:6px;border-top:1px solid rgba(255,255,255,.05)}
+
+.news-mini{background:var(--ink);border:1px solid var(--border);border-top:none;padding:16px 18px;display:flex;gap:14px;align-items:flex-start}
+.news-mini:first-of-type{border-top:1px solid var(--border)}
+.news-mini .rel{font-family:'Space Mono',monospace;font-size:7px;letter-spacing:.1em;padding:2px 6px;text-transform:uppercase;font-weight:700;flex-shrink:0;margin-top:3px}
+.rA{background:rgba(139,26,26,.2);color:var(--red)}
+.rM{background:rgba(154,107,26,.2);color:var(--amber)}
+.rB{background:rgba(30,107,69,.2);color:var(--green)}
+.news-mini .t{font-family:'Playfair Display',serif;font-size:13.5px;font-weight:600;color:var(--white);line-height:1.35;margin-bottom:4px}
+.news-mini .imp{font-size:11.5px;color:var(--muted);line-height:1.5}
+.news-mini .src{font-family:'Space Mono',monospace;font-size:8px;color:var(--faint);text-transform:uppercase;letter-spacing:.08em;margin-top:5px;display:block}
+
+.full-link{display:block;text-align:center;margin-top:32px;padding:16px;border:1px solid rgba(184,148,74,.3);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);transition:all .2s}
+.full-link:hover{background:rgba(184,148,74,.08)}
+
+footer{border-top:1px solid var(--border);padding:18px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.ft-b{font-family:'Playfair Display',serif;font-size:11px;color:var(--faint)}
+.ft-m{font-family:'Space Mono',monospace;font-size:8px;color:var(--faint);letter-spacing:.08em;text-transform:uppercase}
+.loading-app{text-align:center;padding:80px 20px;color:var(--faint);font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login">
+  <div class="login-box">
+    <div class="lb-logo">Pleita · Radar Político</div>
+    <div class="lb-sub">Área do Cliente · Acesso Restrito</div>
+    <label class="lb-label" for="codigo">Código de Acesso</label>
+    <input class="lb-input" id="codigo" type="password" placeholder="●●●●●●●●●●" autocomplete="off" spellcheck="false"/>
+    <button class="lb-btn" id="entrar">Entrar →</button>
+    <div class="lb-err" id="lb-err">Código não reconhecido. Verifique com sua consultoria Pleita.</div>
+    <div class="lb-note">Seu código foi fornecido pela equipe Pleita e é pessoal e intransferível. Em caso de dúvida: contato via pleita.com.br</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <nav class="topbar">
+    <div class="tb-logo">Pleita · Radar</div>
+    <div class="tb-right">
+      <span class="tb-cliente" id="tb-cliente"></span>
+      <select class="tb-sel" id="sel-data" title="Navegar edições"></select>
+      <button class="tb-out" onclick="sair()">Sair</button>
+    </div>
+  </nav>
+
+  <div class="wrap" id="conteudo">
+    <div class="loading-app">Carregando seu radar...</div>
+  </div>
+
+  <footer>
+    <div class="ft-b">Pleita Branding Político · Radar personalizado</div>
+    <div class="ft-m">Dupla verificação de acurácia · Fontes com registro TSE</div>
+  </footer>
+</div>
+
+<script>
+const BASE = '..'; // docs/cliente/ -> docs/
+let CLIENTE = null;
+let DATAS = [];
+
+const e = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+async function sha256(txt){
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(txt));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
+
+const PERFIL_LABEL = {
+  situacao: '🏛 Perfil Situação / Governismo',
+  oposicao: '⚔ Perfil Oposição',
+  centro_independente: '◈ Perfil Centro / Independente'
+};
+
+/* ── LOGIN ── */
+async function tentarLogin(){
+  const cod = document.getElementById('codigo').value.trim().toUpperCase();
+  const err = document.getElementById('lb-err');
+  err.style.display='none';
+  if(!cod) return;
+  try{
+    const res = await fetch(BASE + '/dados/clientes-pub.json?v=' + Date.now());
+    const clientes = await res.json();
+    const h = await sha256(cod);
+    const found = clientes.find(c => c.hash === h);
+    if(!found){ err.style.display='block'; return; }
+    CLIENTE = found;
+    sessionStorage.setItem('pleita_cliente', JSON.stringify(found));
+    entrarApp();
+  }catch(ex){
+    err.textContent = 'Sistema ainda não publicado. A área do cliente ativa após a primeira geração do Radar.';
+    err.style.display='block';
+  }
+}
+document.getElementById('entrar').addEventListener('click', tentarLogin);
+document.getElementById('codigo').addEventListener('keydown', ev=>{ if(ev.key==='Enter') tentarLogin(); });
+
+function sair(){
+  sessionStorage.removeItem('pleita_cliente');
+  location.reload();
+}
+
+/* ── APP ── */
+async function entrarApp(){
+  document.getElementById('login').style.display='none';
+  document.getElementById('app').style.display='block';
+  document.getElementById('tb-cliente').textContent = CLIENTE.nome + (CLIENTE.estado ? ' · '+CLIENTE.estado : '');
+  // carregar datas
+  try{
+    const res = await fetch(BASE + '/dados/datas.json?v=' + Date.now());
+    DATAS = await res.json();
+  }catch{ DATAS = []; }
+  const sel = document.getElementById('sel-data');
+  sel.innerHTML = '<option value="latest">Edição de hoje</option>' +
+    DATAS.map(d=>`<option value="${d}">${d.split('-').reverse().join('/')}</option>`).join('');
+  sel.addEventListener('change', ()=> carregar(sel.value));
+  carregar('latest');
+}
+
+async function carregar(qual){
+  const el = document.getElementById('conteudo');
+  el.innerHTML = '<div class="loading-app">Carregando edição...</div>';
+  const url = qual==='latest' ? BASE+'/dados/latest.json' : BASE+'/historico/radar-'+qual+'.json';
+  try{
+    const res = await fetch(url + '?v=' + Date.now());
+    const r = await res.json();
+    render(r);
+  }catch{
+    el.innerHTML = '<div class="loading-app">Edição não encontrada. O Radar publica sua primeira edição na próxima geração.</div>';
+  }
+}
+
+function render(r){
+  const tc = (r.temperatura_politica||'MORNA').toLowerCase();
+  const tEmoji = tc==='quente'?'🔴':tc==='morna'?'🟡':'🔵';
+  const np = r.narrativas_por_perfil || {};
+  const minha = np[CLIENTE.perfil] || {};
+  const au = r.auditoria;
+
+  let h = '';
+  h += `<div class="saudacao">${PERFIL_LABEL[CLIENTE.perfil]||''}</div>`;
+  h += `<div class="titulo-dia">Seu posicionamento de hoje</div>`;
+  h += `<div class="data-dia">${e(r.data_relatorio||'')}
+    <span class="temp-pill ${tc}">${tEmoji} ${e(r.temperatura_politica||'')}</span>
+    ${au ? '<span class="audit-pill">✓ Auditado · '+(au.itens_verificados||0)+' itens verificados</span>' : ''}
+  </div>`;
+
+  // NARRATIVA PERSONALIZADA (o coração da área do cliente)
+  h += `<div class="minha-narrativa">
+    <div class="mn-label">Narrativa do dia para o seu perfil</div>
+    ${np.contexto ? `<div class="mn-ctx">${e(np.contexto)}</div>` : ''}
+    <div class="mn-grid">
+      <div class="mn-item"><div class="k">Leitura do cenário</div><div class="v">${e(minha.leitura||'—')}</div></div>
+      <div class="mn-item"><div class="k">O que comunicar</div><div class="v">${e(minha.posicionamento||'—')}</div></div>
+      <div class="mn-item"><div class="k">Timing</div><div class="v">${e(minha.timing||'—')}</div></div>
+      <div class="mn-item risco"><div class="k">⚠ O que evitar hoje</div><div class="v">${e(minha.risco||'—')}</div></div>
+    </div>
+  </div>`;
+
+  // RESUMO EXECUTIVO
+  if(r.resumo_executivo){
+    h += `<div class="sec"><span class="stamp">Síntese</span><h2 class="sec-t">Resumo do Dia</h2><div class="rule"></div></div>`;
+    h += `<div class="exec-mini">${e(r.resumo_executivo)}</div>`;
+  }
+
+  // ALERTAS (do insumos_pleita — relevante para todos os perfis)
+  const alertas = r.insumos_pleita?.alertas || [];
+  if(alertas.length){
+    h += `<div class="sec"><span class="stamp">Alertas</span><h2 class="sec-t">Riscos em Monitoramento</h2><div class="rule"></div></div>`;
+    alertas.forEach(a=>{ h += `<div class="alerta-row"><span class="ic">🔔</span>${e(a)}</div>`; });
+  }
+
+  // PESQUISAS (compacto)
+  const dest = r.pesquisas_dados?.destaques || [];
+  if(dest.length){
+    h += `<div class="sec"><span class="stamp">Dados</span><h2 class="sec-t">Pesquisas Verificadas</h2><div class="rule"></div></div>`;
+    h += `<div class="mini-grid">`;
+    dest.forEach(d=>{
+      const meta = [d.registro_tse, d.amostra, d.margem?'±'+d.margem:''].filter(x=>x&&x!=='N/A').join(' · ');
+      h += `<div class="mini-card">
+        <div class="mc-head"><span class="mc-inst">${e(d.instituto)}</span><span class="mc-date">${e(d.data)}</span></div>
+        <div class="mc-num">${e(d.dado_principal)}</div>
+        <div class="mc-ctx">${e(d.contexto)}</div>
+        ${meta?`<div class="mc-meta">${e(meta)}</div>`:''}
+      </div>`;
+    });
+    h += `</div>`;
+  }
+
+  // TOP NOTÍCIAS com impacto (compacto — 4 mais relevantes)
+  const macro = (r.cenario_macro||[]).slice(0,4);
+  if(macro.length){
+    h += `<div class="sec"><span class="stamp">Cenário</span><h2 class="sec-t">O Que Move o Dia</h2><div class="rule"></div></div>`;
+    macro.forEach(m=>{
+      const rc = m.relevancia==='ALTA'?'rA':m.relevancia==='MEDIA'?'rM':'rB';
+      h += `<div class="news-mini">
+        <span class="rel ${rc}">${e(m.relevancia)}</span>
+        <div><div class="t">${e(m.titulo)}</div>
+        <div class="imp">${e(m.impacto_eleitoral||m.descricao)}</div>
+        <span class="src">${e(m.fonte)}</span></div>
+      </div>`;
+    });
+  }
+
+  // Link para o radar completo
+  h += `<a class="full-link" href="${BASE}/index.html" target="_blank">Abrir o Radar completo do dia →</a>`;
+
+  document.getElementById('conteudo').innerHTML = h;
+}
+
+/* ── Sessão persistente ── */
+const salvo = sessionStorage.getItem('pleita_cliente');
+if(salvo){ CLIENTE = JSON.parse(salvo); entrarApp(); }
+</script>
+</body>
+</html>
