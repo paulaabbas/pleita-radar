@@ -1,0 +1,51 @@
+{
+  "_comentario": "Whitelist rígida de fontes do Pleita Radar Político. Qualquer dado citado de fonte fora desta lista é DESCARTADO pelo auditor, não publicado. Editar exige revisão de Paula Abbas.",
+
+  "jornalismo": [
+    { "nome": "Poder360", "dominio": "poder360.com.br", "perfil": "Jornalismo político técnico, apartidário" },
+    { "nome": "Nexo Jornal", "dominio": "nexojornal.com.br", "perfil": "Análise contextualizada" },
+    { "nome": "Agência Pública", "dominio": "apublica.org", "perfil": "Investigativo independente" },
+    { "nome": "Piauí", "dominio": "revistapiaui.estadao.com.br", "perfil": "Análise aprofundada" },
+    { "nome": "BBC Brasil", "dominio": "bbc.com", "perfil": "Cobertura internacional apartidária" },
+    { "nome": "DW Brasil", "dominio": "dw.com", "perfil": "Perspectiva europeia" },
+    { "nome": "Agência Brasil", "dominio": "agenciabrasil.ebc.com.br", "perfil": "Agência pública oficial" },
+    { "nome": "G1", "dominio": "g1.globo.com", "perfil": "Cobertura nacional" },
+    { "nome": "Folha de S.Paulo", "dominio": "folha.uol.com.br", "perfil": "Grande imprensa" },
+    { "nome": "O Globo", "dominio": "oglobo.globo.com", "perfil": "Grande imprensa" },
+    { "nome": "Estadão", "dominio": "estadao.com.br", "perfil": "Grande imprensa" },
+    { "nome": "CNN Brasil", "dominio": "cnnbrasil.com.br", "perfil": "Cobertura nacional" },
+    { "nome": "UOL", "dominio": "uol.com.br", "perfil": "Portal nacional" },
+    { "nome": "Metrópoles", "dominio": "metropoles.com", "perfil": "Cobertura Brasília" },
+    { "nome": "Correio Braziliense", "dominio": "correiobraziliense.com.br", "perfil": "Cobertura Brasília" },
+    { "nome": "Gazeta do Povo", "dominio": "gazetadopovo.com.br", "perfil": "Cobertura nacional e pesquisas" },
+    { "nome": "InfoMoney", "dominio": "infomoney.com.br", "perfil": "Economia e política" },
+    { "nome": "Valor Econômico", "dominio": "valor.globo.com", "perfil": "Economia" }
+  ],
+
+  "institutos_pesquisa": [
+    { "nome": "Datafolha", "dominio": "datafolha.folha.uol.com.br", "exige_registro_tse": true },
+    { "nome": "Ipsos-Ipec", "dominio": "ipsos.com", "exige_registro_tse": true },
+    { "nome": "BTG/Nexus", "dominio": "nexus.fsb.com.br", "exige_registro_tse": true },
+    { "nome": "Quaest", "dominio": "quaest.com.br", "exige_registro_tse": true },
+    { "nome": "PoderData", "dominio": "poder360.com.br", "exige_registro_tse": true },
+    { "nome": "Real Time Big Data", "dominio": "realtimebigdata.com.br", "exige_registro_tse": true },
+    { "nome": "Paraná Pesquisas", "dominio": "paranapesquisas.com.br", "exige_registro_tse": true },
+    { "nome": "AtlasIntel", "dominio": "atlasintel.org", "exige_registro_tse": true },
+    { "nome": "CNT/MDA", "dominio": "cnt.org.br", "exige_registro_tse": true },
+    { "nome": "ABC Dados", "dominio": "abcdados.com.br", "exige_registro_tse": false },
+    { "nome": "IPEA", "dominio": "ipea.gov.br", "exige_registro_tse": false },
+    { "nome": "Instituto Locomotiva", "dominio": "ilocomotiva.com.br", "exige_registro_tse": false },
+    { "nome": "IBGE", "dominio": "ibge.gov.br", "exige_registro_tse": false },
+    { "nome": "Banco Central", "dominio": "bcb.gov.br", "exige_registro_tse": false },
+    { "nome": "TSE", "dominio": "tse.jus.br", "exige_registro_tse": false }
+  ],
+
+  "regras_de_auditoria": {
+    "pesquisa_eleitoral_sem_registro_tse": "REJEITAR — não publicar",
+    "pesquisa_sem_data_de_campo": "REJEITAR",
+    "pesquisa_sem_amostra_e_margem": "SINALIZAR — publicar com aviso de dado incompleto",
+    "fonte_fora_da_whitelist": "REJEITAR — descartar o item inteiro",
+    "numero_divergente_entre_fontes": "PUBLICAR AMBOS com atribuição clara a cada instituto",
+    "dado_nao_verificavel_na_busca": "REJEITAR"
+  }
+}
