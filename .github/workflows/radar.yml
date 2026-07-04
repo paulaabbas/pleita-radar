@@ -1,0 +1,35 @@
+name: Pleita Radar — Geração Diária
+
+on:
+  schedule:
+    # 09:00 UTC = 06:00 BRT (horário de Brasília)
+    - cron: "0 9 * * *"
+  workflow_dispatch: {} # permite gerar manualmente pelo botão "Run workflow"
+
+permissions:
+  contents: write
+
+jobs:
+  gerar-radar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Gerar relatório (geração + auditoria + render)
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: node scripts/generate.js
+
+      - name: Publicar no GitHub Pages (commit automático)
+        run: |
+          git config user.name "Pleita Radar Bot"
+          git config user.email "radar@pleita.com.br"
+          git add docs/
+          git diff --staged --quiet || git commit -m "Radar diário $(date -u +%Y-%m-%d)"
+          git push
